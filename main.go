@@ -70,7 +70,7 @@ func alloc(size size) []byte {
 func main() {
 	blockSizeStr := flag.String("b", "100MB", "block size")
 	memLimitStr := flag.String("m", "1GB", "max memory")
-	waitMilliSec := flag.Int("w", 0, "wait milli sec")
+	waitMilliSec := flag.Int("w", 0, "wait ms after each allocation")
 	flag.Parse()
 
 	blockSize, err := parseSize(*blockSizeStr)
