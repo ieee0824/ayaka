@@ -4,11 +4,14 @@ package main
 import (
 	"flag"
 	"fmt"
-	"math/rand"
 	"strconv"
 	"strings"
 	"time"
 	"unsafe"
+
+	"math/rand/v2"
+
+	"github.com/goark/mt/mt19937"
 )
 
 const (
@@ -65,12 +68,14 @@ func (s size) String() string {
 	}
 }
 
+var rnd = rand.New(mt19937.New(rand.Int64()))
+
 func alloc(size size) []byte {
 	ret := make([]byte, size)
 
 	// random write
 	for i := 0; i < len(ret); i += 8 {
-		r := rand.Uint64()
+		r := rnd.Uint64()
 		b := *(*[8]byte)(unsafe.Pointer(&r))
 
 		for j := 0; j < 8; j++ {
