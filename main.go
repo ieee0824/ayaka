@@ -4,9 +4,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"math/rand"
 	"strconv"
 	"strings"
 	"time"
+	"unsafe"
 )
 
 const (
@@ -64,7 +66,20 @@ func (s size) String() string {
 }
 
 func alloc(size size) []byte {
-	return make([]byte, size)
+	ret := make([]byte, size)
+
+	// random write
+	for i := 0; i < len(ret); i += 8 {
+		r := rand.Uint64()
+		b := *(*[8]byte)(unsafe.Pointer(&r))
+
+		for j := 0; j < 8; j++ {
+			ret[i+j] = b[j]
+		}
+
+	}
+
+	return ret
 }
 
 func main() {
