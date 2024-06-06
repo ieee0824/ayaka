@@ -85,7 +85,12 @@ func alloc(size size) []byte {
 func main() {
 	blockSizeStr := flag.String("b", "100MB", "block size")
 	memLimitStr := flag.String("m", "1GB", "max memory")
+	// loopの待ち時間
+	// waitMilliSec ごとにループを回す
 	waitMilliSec := flag.Int("w", 0, "wait ms after each allocation")
+	// 完了後に待機する時間
+	nopTime := flag.Int("n", 0, "wait ms after all allocation")
+
 	flag.Parse()
 
 	blockSize, err := parseSize(*blockSizeStr)
@@ -107,6 +112,12 @@ func main() {
 		fmt.Printf("Allocated %s, wait %s...\n", blockSize+blockSize*i, time.Duration(*waitMilliSec)*time.Millisecond)
 		time.Sleep(time.Duration(*waitMilliSec) * time.Millisecond)
 	}
+
+	if *nopTime == 0 {
+		return
+	}
+	fmt.Println("Nop wait...", time.Duration(*nopTime)*time.Second)
+	time.Sleep(time.Duration(*nopTime) * time.Second)
 
 	_ = buf
 }
