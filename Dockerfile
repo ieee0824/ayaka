@@ -8,7 +8,7 @@ COPY main.go ./
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ayaka .
 
-FROM debian:slim
+FROM debian:12-slim
 
 COPY --from=builder /app/ayaka /bin/ayaka
 
