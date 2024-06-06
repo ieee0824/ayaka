@@ -2,8 +2,9 @@ FROM golang:latest AS builder
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
-COPY main.go ./
+COPY go.mod .
+COPY go.sum .
+COPY main.go .
 
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ayaka .
