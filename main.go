@@ -94,7 +94,7 @@ func main() {
 	// waitMilliSec ごとにループを回す
 	waitMilliSec := flag.Int("w", 0, "wait ms after each allocation")
 	// 完了後に待機する時間
-	nopTime := flag.Int("n", 0, "wait ms after all allocation")
+	nopTime := flag.Int("n", 0, "wait seconds after all allocation")
 
 	flag.Parse()
 
